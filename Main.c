@@ -7,12 +7,18 @@
 #include "Poke.h"
 int main()
 {
-    HashMap* Poke_byKind =createMap(30);
-    List* a =create_list();
-    importCSV("PokeList1",a,Poke_byKind);
-    print_All(a);
+    HashMap* Poke_byName =createMap(9);
+    HashMap* Poke_byKind =createMap(90);
+    List* PokeDex =create_list();
+    importCSV("PokeList1",PokeDex,Poke_byName,Poke_byKind);
+    search_byName("Charmander",Poke_byName);
+    printf("\n\n");
+    search_byKind("Agua, Psiquico",Poke_byKind);
+    printf("\n\n");
+    show_fromRegion("Hoenn",PokeDex);
+    //print_All(PokeDex);
     HashMap* Mappy =createMap(7);
-    insertMap(Mappy,"helloThere","meow~♡\n ^ ^\n(°w°)↝\n ⎻⎻⎻");
-    printf ("%s\n",(char*)(searchMap(Mappy,"helloThere")));
+    //insertMap(Mappy,"helloThere","meow~♡\n ^ ^\n(°w°)↝\n ⎻⎻⎻");
+    //printf ("%s\n",(char*)(searchMap(Mappy,"helloThere")));
     return(0);
 }

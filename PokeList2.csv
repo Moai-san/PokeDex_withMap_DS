@@ -19,7 +19,7 @@ id,nombre,tipos,pc,ps,sexo,evolucion previa,evolucion posterior,numero pokedex,r
 113,Raboot,Fuego,2500,272,Macho,Scorbunny,Cinderace,814,Galar
 114,Typhlosion,Fuego,3000,200,Macho,Quilava,No tiene,157,Johto
 115,Dragonite,"Volador, Dragon",3328,167,Macho,Dragonair,No tiene,149,Kanto
-116,Inferneape ,"Fuego, Lucha",2189,300,Macho,Monferno,No tiene,392,Sinnoh
+116,Inferneape,"Fuego, Lucha",2189,300,Macho,Monferno,No tiene,392,Sinnoh
 117,Golisopod,"Agua, Bicho",2500,135,Macho,Wimpod,No tiene,768,Alola
 118,Metagross,"Psiquico, Acero",3326,151,No tiene,Metang,No tiene,376,Hoenn
 119,Togedemaru,"Electrico, Acero",1500,80,Macho,No tiene,No tiene,777,Alola
@@ -28,8 +28,8 @@ id,nombre,tipos,pc,ps,sexo,evolucion previa,evolucion posterior,numero pokedex,r
 122,Mawile,"Acero, Hada",1400,90,Hembra,No tiene,No tiene,303,Hoenn
 123,Charmander,Fuego,520,300,Hembra,No tiene,Charmeleon,4,Kanto
 124,Arcanine,Fuego,1300,207,Macho,Growlithe,No tiene,59,Kanto
-125,Dedenne ,"Electrico, Hada",200,67,Macho,No tiene,No tiene,702,Kalos
-126,Heracross ,"Lucha, Bicho",3104,364,Macho,No tiene,No tiene,211,Johto
+125,Dedenne,"Electrico, Hada",200,67,Macho,No tiene,No tiene,702,Kalos
+126,Heracross,"Lucha, Bicho",3104,364,Macho,No tiene,No tiene,211,Johto
 127,Ferrothorn,"Planta, Acero",3000,299,Macho,Ferroseed,No tiene,598,Teselia
 128,Eevee,Normal,459,146,Hembra,No tiene,Flareon,133,Kanto
 129,Quagsire,"Agua, Tierra",1877,162,Macho,Wooper,No tiene,195,Johto
@@ -93,4 +93,4 @@ id,nombre,tipos,pc,ps,sexo,evolucion previa,evolucion posterior,numero pokedex,r
 187,Trapinch,Tierra,824,89,Macho,No tiene,Vibrava,328,Hoenn
 188,Trapinch,Tierra,527,72,Hembra,No tiene,Vibrava,328,Hoenn
 189,Cherrim,Planta,1646,131,Hembra,Cherubi,No tiene,421,Sinnoh
-190,Burmy,Bicho,275,80,Macho,No tiene,Mothim,412,Sinnoh
+190,Burmy,Bicho,275,80,Macho,No tiene,Mothim,412,Sinnoh 

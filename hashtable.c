@@ -105,7 +105,7 @@ void insertMap(HashMap* map, char* key, void* value)
   }
   map->buckets[position] =(a);
   map->size =((map->size)+1);
-  if (((map->size)/(map->capacity))>0.7)
+  if ((map->size)>((map->capacity)*0.7))
   {
     enlarge(map);
   }
@@ -131,34 +131,59 @@ void* searchMap(HashMap* map,  char* key)
   long position;
   position =(hash(key,(map->capacity)));
   long count =(0);
-  while ((is_equal(key,(map->buckets[position]->key)))==(0))
+  while (1)
   {
-    position =(position+1);
-    count =(count+1);
-    while(1)
+    if ((map->buckets[position])!=(NULL))
     {
-      if ((map->buckets[position])==(NULL))
+      if ((is_equal(key,(map->buckets[position]->key)))==(0))
       {
-        count =(count+1);
         position =(position+1);
+        count =(count+1);
+        while(1)
+        {
+          if ((map->buckets[position])==(NULL))
+          {
+            count =(count+1);
+            position =(position+1);
+            if (position>=(map->capacity))
+            {
+              position =(position-(map->capacity));
+            }
+            if (count>=(map->capacity)-1)
+            {
+              map->current =(-1);
+              return (NULL);
+            }
+          }
+          else
+          {
+            break;
+          }
+        }
       }
       else
       {
         break;
       }
     }
-    if (position>=(map->capacity))
+    else
     {
-      position =(position-(map->capacity));
+      position =(position+1);
+      count =(count+1);
+      if (position>=(map->capacity))
+      {
+        position =(position-(map->capacity));
+      }
+      if (count>=(map->capacity)-1)
+      {
+        map->current =(-1);
+        return (NULL);
+      }
     }
-    if (count>=(map->capacity)-1)
-    {
-      map->current =(-1);
-      return (NULL);
-    }    
+        
   }
   void* output;
-  output =((void*)calloc(1,(sizeof(void))));
+  //output =((void*)calloc(1,(sizeof(void))));
   output =(map->buckets[position]->value);
   map->current =(position);
   return (output);
