@@ -13,9 +13,10 @@ int main()
     importCSV("PokeList1",PokeDex,Poke_byName,Poke_byKind);
     search_byName("Charmander",Poke_byName);
     printf("\n\n");
-    search_byKind("Agua, Psiquico",Poke_byKind);
+    dex_search_byName("Patamon",PokeDex);
+    //search_byKind("Agua, Psiquico",Poke_byKind);
     printf("\n\n");
-    show_fromRegion("Hoenn",PokeDex);
+    //show_fromRegion("Kanto",PokeDex);
     //print_All(PokeDex);
     HashMap* Mappy =createMap(7);
     //insertMap(Mappy,"helloThere","meow~♡\n ^ ^\n(°w°)↝\n ⎻⎻⎻");

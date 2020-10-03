@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "hashtable.h"
+#include <string.h>
 //#include "Poke.h"
 
 typedef struct Pokemon Pokemon;
@@ -30,21 +31,22 @@ struct PokeNode
 };
 //- cp -hp - evolvesIn - evolveFrom - gender
 /* initialize a DataType PokeNode Variable for our pokedex  (list)*/
-PokeNode create_PokeNode(PokeNode input)
+PokeNode* create_PokeNode()
 {
-   input.name =(char*)calloc(25,sizeof(char));
-   input.kind =(char*)calloc(50,sizeof(char));
-   input.evolveFrom =(char*)calloc(40,sizeof(char));
-   input.evolvesIn =(char*)calloc(40,sizeof(char));
-   input.region =(char*)calloc(25,sizeof(char));
-   return (input);
+   PokeNode* output =((PokeNode*)calloc(1,sizeof(PokeNode)));
+   output->name =(char*)calloc(25,sizeof(char));
+   output->kind =(char*)calloc(50,sizeof(char));
+   output->evolveFrom =(char*)calloc(40,sizeof(char));
+   output->evolvesIn =(char*)calloc(40,sizeof(char));
+   output->region =(char*)calloc(25,sizeof(char));
+   return (output);
 }
 
 /* initialize a DataType Pokemon Variable*/
-Pokemon create_Pokemon(Pokemon input)
+Pokemon* create_Pokemon(Pokemon* input)
 {
-   input.name =(char*)calloc(25,sizeof(char));
-   input.gender =(char*)calloc(10,sizeof(char));
+   input->name =(char*)calloc(25,sizeof(char));
+   input->gender =(char*)calloc(10,sizeof(char));
    return (input);
 }
 
@@ -70,7 +72,7 @@ void addPoke(char* Name, char* kind, int uid, char* evolveFrom, char* evolvesIn,
       aux->have =((aux->have)+1);
       Pokemon* newPoke;
       newPoke =((Pokemon*)calloc(1,sizeof(Pokemon)));
-      create_Pokemon(*newPoke);
+      create_Pokemon(newPoke);
       newPoke->name =(Name);
       newPoke->uid =(uid);
       newPoke->pc =(pc);
@@ -93,8 +95,7 @@ void addPoke(char* Name, char* kind, int uid, char* evolveFrom, char* evolvesIn,
    else
    {
       PokeNode* newPokeNode;
-      newPokeNode =((PokeNode*)calloc(1,sizeof(PokeNode)));
-      create_PokeNode(*newPokeNode);
+      newPokeNode =create_PokeNode();
       newPokeNode->name =(Name);
       newPokeNode->have =(1);
       newPokeNode->kind =(kind);
@@ -105,7 +106,7 @@ void addPoke(char* Name, char* kind, int uid, char* evolveFrom, char* evolvesIn,
       newPokeNode->region =(region);
       Pokemon* newPoke;
       newPoke =((Pokemon*)calloc(1,sizeof(Pokemon)));
-      create_Pokemon(*newPoke);
+      create_Pokemon(newPoke);
       newPoke->name =(Name);
       newPoke->uid =(uid);
       newPoke->pc =(pc);
@@ -158,7 +159,7 @@ void print_All(List* PokeNodes)
    PokeNode* aux;
    aux =(first(PokeNodes));
    aux =(next(PokeNodes));
-   printf("%-25s│%-10s│%-28s│%-5s│%-40s│%-40s│%-14s│%s\n","Nombre","Tienes","Tipo(s)","Id","Evolucion","Pre-Evolucion","N° Pokedex ","Región");
+   printf("%-25s│%-10s│%-28s│%-5s│%-40s│%-40s│%-14s│%s\n","Nombre","Tienes","Tipo(s)","Id","Pre-Evolucion","Evolucion","N° Pokedex ","Región");
    printf("⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼\n");
    while(aux!=NULL) 
    {
@@ -177,15 +178,19 @@ void dex_search_byName(char* name,List* PokeDex)
    int flag;
    flag =(-1);
    PokeNode* aux;
-   aux =((PokeNode*)calloc(1,sizeof(PokeNode)));
-   create_PokeNode(*aux);
+   aux =create_PokeNode();
    aux =(first(PokeDex));
    while(aux!=NULL) 
    {
       if((strcmp(name,(aux->name)))==0)
       {
+         if (flag==(-1))
+         {
+            printf("%-25s│%-10s│%-28s│%-5s│%-40s│%-40s│%-14s│%s\n","Nombre","Tienes","Tipo(s)","Id","Pre-Evolucion","Evolucion","N° Pokedex ","Región");
+            printf("⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼\n");
+         }
          flag=(1);
-         //printeo
+         printf("%-25s│%-10d│%-28s│%-5d│%-40s│%-40s│%-13d│%s\n",aux->name,aux->have,aux->kind,aux->uid,aux->evolveFrom,aux->evolvesIn,aux->poke_id,aux->region);
       }
       aux =next(PokeDex);
    }
@@ -230,33 +235,28 @@ void search_byKind(char* Kind,HashMap* PokeKinds)
 
 void show_fromRegion(char* Region,List* PokeDex)
 {
-   PokeNode* pokeInfo;
+   PokeNode* pokeInfo =create_PokeNode();
    pokeInfo =(first(PokeDex));
    pokeInfo =(next(PokeDex));
-   printf("%-25s│%-10s│%-28s│%-5s│%-40s│%-40s│%-14s│%s\n","Nombre","Tienes","Tipo(s)","Id","Evolucion","Pre-Evolucion","N° Pokedex ","Región");
+   printf("%-25s│%-10s│%-28s│%-5s│%-40s│%-40s│%-14s│%s\n","Nombre","Tienes","Tipo(s)","Id","Pre-Evolucion","Evolucion","N° Pokedex ","Región");
    printf("⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼\n");
    char* a =(char*)calloc(50,sizeof(char));
    while (pokeInfo!=NULL)
    {
-      strcpy(a,pokeInfo->region);
-      if ((strcmp(Region,a))==0)
+      memcpy(a,pokeInfo->region,sizeof(char)*(strlen(Region)));
+      if (is_equal(Region,a))
       {
-         printf("%-25s│%-10d│%-28s│%-5d│%-40s│%-40s│%-13d│%s",pokeInfo->name,pokeInfo->have,pokeInfo->kind,pokeInfo->uid,pokeInfo->evolveFrom,pokeInfo->evolvesIn,pokeInfo->poke_id,pokeInfo->region);
-         pokeInfo =next(PokeDex);  
+        printf("%-25s│%-10d│%-28s│%-5d│%-40s│%-40s│%-13d│%s\n",pokeInfo->name,pokeInfo->have,pokeInfo->kind,pokeInfo->uid,pokeInfo->evolveFrom,pokeInfo->evolvesIn,pokeInfo->poke_id,pokeInfo->region);
+        pokeInfo =next(PokeDex);  
       }
       else
       {
-         //printf("PROHIBIDO HABLAR DE HUEVITO REY\n");
          pokeInfo =next(PokeDex);
       }
       
    }
 }
 
-/*File Functions*/
-
-
-/*Export Function, Creates A File (.csv) With the Specified Name, and Writes The GameList onto this File*/
 /*void exportCSV(char* name,List* Pokemons)
 {
    FILE* output;
@@ -294,9 +294,8 @@ void importCSV(char* name,List* PokeDex,HashMap* PokebyName,HashMap* PokebyKind)
    while(fgets(line, 104,input) != NULL) 
    {
       datos =((Pokemon*)calloc(1,sizeof(Pokemon)));
-      datos[0] =(create_Pokemon(datos[0]));
-      datosDex =((PokeNode*)calloc(1,sizeof(PokeNode)));
-      datosDex[0] =(create_PokeNode(datosDex[0]));
+      datos =(create_Pokemon(datos));
+      datosDex =create_PokeNode();
       datosDex->uid =(atol(get_csv_field(line,0)));
       strcpy((datosDex->name),((char*)get_csv_field(line,1)));
       strcpy((datosDex->kind),((char*)get_csv_field(line,2)));
@@ -315,50 +314,3 @@ void importCSV(char* name,List* PokeDex,HashMap* PokebyName,HashMap* PokebyKind)
    system("reset");
    printf("Archivo Importado Exitosamente!!!\n");
 }
-
-
-/*Print Functions*/
-
-/*Receives a Kind of Game, and a GameList, Prints All the Games of that Kind, in case that there are no games of that Kind, Prints a "sorry, there are no games of that Kind" style message*/
-/*void search_byKind(char* Kind,HashMap* Poke_byKind)
-{
-   int flag;
-   flag =(-1);
-   long pos;
-   pos =(hash(Kind,Poke_byKind->capacity));
-   if(Poke_byKind->buckets[pos]!=NULL)
-   {
-      flag =(1);
-      print_All(Poke_byKind->buckets[pos]->value);
-   }
-   if (flag==(-1))
-   {
-      printf ("Pucha, no hay Pokemons de tipo %s en tu bolsa  ༼ ༎ຶ ෴ ༎ຶ༽｡\n",Kind);
-   }
-}*/
-
-/*Prints All The Expansions In the GameList*/
-/*void print_Expansions(List* Pokemons)
-{
-   int flag;
-   flag =(-1);
-   Pokemon* aux;
-   aux =((Pokemon*)calloc(1,sizeof(Pokemon)));
-   create_Poke(*aux);
-   aux =(first(Pokemons));
-   while(aux!=NULL) 
-   {
-      if((strcmp("extension",(aux->kind)))==0)
-      {
-         flag=(1);
-         printf ("%-45s|%-30s|%-45s\t|%-2d~ %-2d jugadores |%s\n",(aux->name),(aux->region),(aux->kind),(aux->uid),(aux->poke_id),(aux->expansions));
-      }
-      aux =next(Pokemons);
-   }
-   //printf("%s",Expansion);
-   if (flag==(-1))
-   {
-      printf ("Pucha, no tienes expansiones para tus Pokemons ༼ ༎ຶ ෴ ༎ຶ༽｡\n");
-   }
-   free(aux);
-}*/
