@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "list.h"
 #include "hashtable.h"
+#include "Poke.h"
+//#include "lectura_csv.c"
 /*System Condition, only if it's Compiled in windows, includes the library*/
 #ifdef _WIN32
     #include <windows.h>
@@ -22,20 +24,18 @@ void clear_Screen()
 }
 
 /*Menu (yup, i know that is obvious, but i have to comment that)*/
-int menu (List* PokeDex, HashMap* Poke_byName,HashMap* Poke_byKind)
+int menu ()
 {
-    printf("Bienvenid@ Pokemaster! OwO\nQue te gustaria hacer hoy?(\'w\')\na)Importar CSV\nb)Exportar CSV\nc)Atrapar un Pokemon\nd)Buscar Pokemon por tipo\ne)Buscar Pokemon por nombre\nf)Buscar Pokemon por nombre en la PokeDex\ng)Mostrar Pokemon de \"x\" region\nh)Mostrar Pokemon ordenados por PC\ni)Mostrar Pokemon ordenados por PS\nj)Mostrar todos los Pokemon de la PokeDex\nk)Liberar un Pokemon\nSi no quieres nada, solo presiona la tecla enter uwu\n");
+    printf("Bienvenid@ Pokemaster! OwO\nQue te gustaria hacer hoy?(\'w\')\na)Importar CSV\nb)Exportar CSV\nc)Atrapar un Pokemon\nd)Buscar Pokemon por tipo\ne)Buscar Pokemon por nombre\nf)Buscar Pokemon por nombre en la PokeDex\ng)Mostrar Pokemon de \"x\" region\nh)Mostrar Pokemon ordenados por PC\ni)Mostrar Pokemon ordenados por PS\nj)Mostrar todos los Pokemon de la PokeDex\nk)Liberar un Pokemon\nl)limpiar la pantalla\nSi no quieres nada, solo presiona la tecla enter uwu\n");
     char option;
     short int flag;
     flag =(-1);
     char garbageBin;//papelera para la basura que se situa en stdin
     do
     {
-        /*a)Importar CSV b)Exportar CSV c)Atrapar un Pokemon d)Buscar Pokemon por tipo e)Buscar Pokemon por nombre f)Buscar Pokemon por nombre en la PokeDex 
-        g)Mostrar Pokemon de x region h)Mostrar Pokemon ordenados por PC i)Mostrar Pokemon ordenados por PS j)Mostrar todos los Pokemon de la PokeDex k)Liberar un Pokemon*/
         if (flag==(1))
         {
-            printf("Te gustaria Hacer algo Mas?(\'w\')\na)Importar juegos\nb)Exportar juegos\nc)Agregar juego\nd)Buscar juegos para 'x' cantidad de jugadores\ne)Buscar juegos de 'x' marca\nf)Buscar un juego\ng)Buscar juego por tipo\nh)Busqueda Avanzada\ni)Mostrar todos los juegos\nj)Mostrar expansiones\nSi no quieres nada, solo presiona la tecla enter uwu\n");
+            printf("Te gustaria Hacer algo Mas?(\'w\')\na)Importar CSV\nb)Exportar CSV\nc)Atrapar un Pokemon\nd)Buscar Pokemon por tipo\ne)Buscar Pokemon por nombre\nf)Buscar Pokemon por nombre en la PokeDex\ng)Mostrar Pokemon de \"x\" region\nh)Mostrar Pokemon ordenados por PC\ni)Mostrar Pokemon ordenados por PS\nj)Mostrar todos los Pokemon de la PokeDex\nk)Liberar un Pokemon\nl)limpiar la pantalla\nSi no quieres nada, solo presiona la tecla enter uwu\n");
         }
         scanf("%c",&option);
             switch (option)
@@ -48,7 +48,7 @@ int menu (List* PokeDex, HashMap* Poke_byName,HashMap* Poke_byKind)
                     scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
                     scanf("%[^\n]",file);
                     clear_Screen();
-                    importCSV(file,,PokeDex,Poke_byName,Poke_byKind);
+                    importCSV(file);
                     break;
                 }
                 case 'b':
@@ -59,8 +59,7 @@ int menu (List* PokeDex, HashMap* Poke_byName,HashMap* Poke_byKind)
                     scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
                     scanf("%[^\n]",name);
                     clear_Screen();
-                    exportGames(name,Juegos);
-                    printf("Se exportaron los Juegos al archivo %s.csv\n",name);
+                    exportCSV(name);
                     break;
                 }
                 case 'c':
@@ -68,96 +67,122 @@ int menu (List* PokeDex, HashMap* Poke_byName,HashMap* Poke_byKind)
                     scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
                     char* name;
                     name =((char*)calloc(105,sizeof(char)));
-                    char* brand;
-                    brand =((char*)calloc(105,sizeof(char)));
                     char* kind;
                     kind =((char*)calloc(105,sizeof(char)));
-                    int min;
-                    int max;
-                    char* expansion;
-                    expansion =((char*)calloc(105,sizeof(char)));
+                    char* region;
+                    region =((char*)calloc(105,sizeof(char)));
+                    char* evolveFrom;
+                    evolveFrom =((char*)calloc(105,sizeof(char))); 
+                    char* evolvesIn;
+                    evolvesIn =((char*)calloc(105,sizeof(char)));
+                    int pc;
+                    int ps;
+                    int uid;
+                    int pokedex_id;
+                    char* gender;
+                    gender =((char*)calloc(105,sizeof(char)));
                     printf("Ingresa el nombre\n");
                     scanf("%[^\n]",name);
                     scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
-                    printf("Ingresa La Marca\n");
-                    scanf("%[^\n]",brand);
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
-                    printf("Ingresa El tipo de Juego\n");
+                    printf("Ingresa el/los Tipo(s) (si es mas de un tipo, ingrese separados por coma, como en el ejemplo \"Fuego, Volador\", sin comillas)\n");
                     scanf("%[^\n]",kind);
                     scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
-                    printf("Ingresa el numero minimo de Jugadores\n");
-                    scanf("%d",&min);
-                    printf("Ingresa el numero maximo de Jugadores\n");
-                    scanf("%d",&max);
-                    printf("Ingresa el juego base en caso de ser una expansion, si no lo es, escribe \"No aplica\" (sin las comillas)\n");
+                    printf("Ingresa la ID del pokemon\n");
+                    scanf("%d",&uid);
                     scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
-                    scanf("%[^\n]",expansion);;
+                    printf("Ingresa la evolucion previa\n");
+                    scanf("%[^\n]",evolveFrom);
+                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    printf("Ingresa la evolucion posterior\n");
+                    scanf("%[^\n]",evolvesIn);
+                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    printf("Ingresa el numero en la pokedex del pokemon\n");
+                    scanf("%d",&pokedex_id);
+                    printf("Ingresa la region\n");
+                    scanf("%[^\n]",region);
+                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    printf("Ingresa los PC del pokemon\n");
+                    scanf("%d",&pc);
+                    printf("Ingresa los PS del pokemon\n");
+                    scanf("%d",&ps);
+                    printf("Ingresa el sexo del pokemon");
+                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%[^\n]",gender);
                     clear_Screen();
-                    addGames(name,brand,kind,min,max,expansion,Juegos);
+                    addPoke(name,kind,uid,evolveFrom,evolvesIn,pokedex_id,region,pc,ps,gender);
                     break;
                 }
                 case 'd':
                 {
-                    int range;
-                    printf("ingrese la cantidad de jugadores!\n");
-                    scanf("%d",&range);
+                    char kind [105];
+                    printf("ingrese tipo de Pokemon!\n");
+                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%[^\n]",kind);
                     clear_Screen();
-                    search_byRange(range,Juegos);
+                    search_byKind(kind);
                     break;
                 }
                 case 'e':
                 {
-                    char* brand =((char*)calloc(100,sizeof(char)));
-                    printf("ingrese la marca a filtrar!\n");
+                    char name [105];
+                    printf("ingrese nombre del Pokemon!\n");
                     scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
-                    scanf("%[^\n]",brand);
+                    scanf("%[^\n]",name);
                     clear_Screen();
-                    search_byBrand(brand,Juegos);
+                    search_byName(name);
                     break;
                 }
                 case 'f':
                 {
-                    char* name =((char*)calloc(100,sizeof(char)));
-                    printf("ingrese el nombre a filtrar!\n");
+                    char dex_name [105];
+                    printf("ingrese nombre del Pokemon!\n");
                     scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
-                    scanf("%[^\n]",name);
+                    scanf("%[^\n]",dex_name);
                     clear_Screen();
-                    search_byName(name,Juegos);
+                    dex_search_byName(dex_name);
                     break;
                 }
                 case 'g':
                 {
-                    char* kind =((char*)calloc(100,sizeof(char)));
-                    printf("Escriba el tipo de juego a buscar! =o= (si buscas juegos que sean de 2 o mas tipos a la vez, debes escribirlos en el siguiente formato \"tipo1, tipo2, tipoN\" (sin las comillas) ), con otro formato no encontrara\n");
+                    char region [105];
+                    printf("ingrese region!\n");
                     scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
-                    scanf("%[^\n]",kind);
+                    scanf("%[^\n]",region);
                     clear_Screen();
-                    search_byKind(kind,Juegos);
+                    show_fromRegion(region);
                     break;
                 }
                 case 'h':
                 {
-                    char* kind =((char*)calloc(100,sizeof(char)));
-                    int range;
-                    printf("Escriba el tipo de juego a buscar! =o=\n");
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
-                    scanf("%[^\n]",kind);
-                    printf("Escriba el numero de jugadores! (=w=)7\n");
-                    scanf("%d",&range);
                     clear_Screen();
-                    advanced_Search(kind,range,Juegos);
+                    show_byPC();
                     break;
                 }
                 case 'i':
                 {
                     clear_Screen();
-                    print_All(Juegos);
+                    show_byPS();
                     break;
                 }
                 case 'j':
                 {
+                    //k)Liberar un Pokemon,l)limpiar la pantalla
                     clear_Screen();
-                    print_Expansions(Juegos);
+                    print_dex();
+                    break;
+                }
+                case 'k':
+                {
+                    int id;
+                    printf("ingrese ID del pokemon a eliminar!\n");
+                    scanf("%d",&id);
+                    clear_Screen();
+                    del_poke(id);
+                    break;
+                }
+                case 'l':
+                {
+                    clear_Screen();
                     break;
                 }
                 case '\n':

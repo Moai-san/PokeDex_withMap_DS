@@ -252,7 +252,6 @@ void * prev_tree(TreeMap * tree) {
       }
       else
       {
-        printf("ya estas en el primer nodo :c , por lo mismo no hay un anterior");
         return NULL;
       }
     }

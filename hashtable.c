@@ -125,7 +125,6 @@ void* searchMap(HashMap* map, void* key)
 {   
   if ((map->size)==(0))
   {
-    printf ("Mapa Vacio!");
     return (NULL);
   }
   long position;
