@@ -23,7 +23,7 @@ struct HashMap
   long current;
 };
 
-Pair* createPair(char* key, void* value)
+Pair* createPair(void* key, void* value)
 {
   Pair* newP =((Pair*)calloc(1,sizeof(Pair)));
   newP->key =(key);
@@ -31,7 +31,7 @@ Pair* createPair(char* key, void* value)
   return (newP);
 }
 
-long hash( char* key, long capacity)
+long hash( void* key, long capacity)
 {
   unsigned long hash =(0);
   char* ptr;
@@ -55,7 +55,7 @@ int is_equal(void* key1, void* key2)
   return (0);
 }
 
-void insertReHashed(HashMap* map, char* key, void* value) 
+void insertReHashed(HashMap* map, void* key, void* value) 
 {
   long position;
   Pair* a =(createPair(key,value));
@@ -90,7 +90,7 @@ void enlarge(HashMap * map)
   //free(pivot);
 }
 
-void insertMap(HashMap* map, char* key, void* value) 
+void insertMap(HashMap* map, void* key, void* value) 
 {
   long position;
   Pair* a =(createPair(key,value));
@@ -121,7 +121,7 @@ HashMap* createMap(long capacity)
   return map;
 }
 
-void* searchMap(HashMap* map,  char* key)
+void* searchMap(HashMap* map, void* key)
 {   
   if ((map->size)==(0))
   {
@@ -189,7 +189,7 @@ void* searchMap(HashMap* map,  char* key)
   return (output);
 }
 
-void eraseMap(HashMap* map, char* key)
+void eraseMap(HashMap* map, void* key)
 {    
   searchMap(map,key);
   if((map->current)==(-1))

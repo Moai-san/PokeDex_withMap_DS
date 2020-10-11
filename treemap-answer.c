@@ -227,7 +227,7 @@ TreeNode * maximum(TreeNode * x)
   }
 }
 
-void * last(TreeMap * tree)
+void * last_tree(TreeMap * tree)
 {
   Pair* output =((Pair*)calloc(1,sizeof(Pair)));
   tree->current =(tree->root);
@@ -239,7 +239,7 @@ void * last(TreeMap * tree)
   return (output);
 }
 
-void * prev(TreeMap * tree) {
+void * prev_tree(TreeMap * tree) {
   Pair* output =((Pair*)calloc(1,sizeof(Pair)));
   if (tree->current->left==NULL)
   {

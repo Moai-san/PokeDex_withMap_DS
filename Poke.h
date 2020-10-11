@@ -8,12 +8,12 @@ typedef struct PokeNode PokeNode;
 
 PokeNode* create_PokeNode();
 Pokemon* create_Pokemon(Pokemon* input);
-int addPoke(char* Name, char* kind, int uid, char* evolveFrom, char* evolvesIn, int poke_id, char* region, int pc, int ps, char* gender, List* Pokedex, HashMap* PokeBag, HashMap* PokebyKind);
-void dex_search_byName(char* name,List* PokeDex);
-void search_byKind(char* Kind,HashMap* Poke_byKind);
-//void search_byName(char* Name,List* Pokemons);
-//void exportCSV(char* name,List* Pokemons);
-void importCSV(char* name,List* PokeDex,HashMap* PokebyName,HashMap* PokebyKind);
+int addPoke(char* Name, char* kind, int uid, char* evolveFrom, char* evolvesIn, int poke_id, char* region, int pc, int ps, char* gender);
+void dex_search_byName(char* name);
+void search_byKind(char* Kind);
+void search_byName(char* Name);
+void exportCSV(char* name);
+void importCSV(char* name);
 void print_All(List* Pokemons);
 
 

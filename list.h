@@ -1,4 +1,3 @@
-
 #ifndef __defined_arraylist_h
 #define __defined_arraylist_h
 
@@ -7,8 +6,7 @@
 #include "list.c"
 
 
-
-typedef struct Arraylist_Struct List;
+typedef struct List List;
 
 List* create_list();
 

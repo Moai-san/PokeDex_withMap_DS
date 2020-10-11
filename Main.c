@@ -5,19 +5,22 @@
 #include "hashtable.h"
 #include "list.h"
 #include "Poke.h"
+//#include "menu.c"
 int main()
 {
     init_var();
-    HashMap* Poke_byName =createMap(90);
-    HashMap* Poke_byKind =createMap(90);
-    List* PokeDex =create_list();
-    importCSV("PokeList1",PokeDex,Poke_byName,Poke_byKind);
-    //importCSV("PokeList1",PokeDex,Poke_byName,Poke_byKind);
-    search_byName("Charmander",Poke_byName);
+    //importCSV("PokeList1");
+    importCSV("PokeList1");
+    printf("\n");
+    //menu();
+    del_poke(64);
+    //dex_search_byName("Snorlax");
     printf("\n\n");
-    show_byPS();
-    //dex_search_byName("Patamon",PokeDex);
-    //search_byKind("Agua",Poke_byKind);
+    search_byKind("Normal, Fuego, Agua, Planta");
+    printf("\n\n");
+    search_byName("Snorlax");
+    show_byPC();
+    exportCSV("cocos");
     //printf("\n\n");
     //show_fromRegion("Kanto",PokeDex);
     //print_All(PokeDex);
