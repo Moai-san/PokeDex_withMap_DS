@@ -105,7 +105,7 @@ int menu ()
                     scanf("%d",&pc);
                     printf("Ingresa los PS del pokemon\n");
                     scanf("%d",&ps);
-                    printf("Ingresa el sexo del pokemon");
+                    printf("Ingresa el sexo del pokemon\n");
                     scanf("%c",&garbageBin);
                     scanf("%[^\n]",gender);
                     clear_Screen();
