@@ -22,7 +22,6 @@ void clear_Screen()
     }
     #endif
 }
-//dejar comments en los case, por funcion
 
 /*Menu (yup, i know that is obvious, but i have to comment that)*/
 int menu ()
@@ -41,7 +40,7 @@ int menu ()
         scanf("%c",&option);
             switch (option)
             {
-                case 'a':
+                case 'a': //caso a, importar archivo
                 {
                     char* file;
                     file =((char*)calloc(105,sizeof(char)));
@@ -52,7 +51,7 @@ int menu ()
                     importCSV(file);
                     break;
                 }
-                case 'b':
+                case 'b': //caso b, exportar archivo
                 {
                     char* name;
                     name =((char*)calloc(105,sizeof(char)));
@@ -63,7 +62,7 @@ int menu ()
                     exportCSV(name);
                     break;
                 }
-                case 'c':
+                case 'c': //caso c, atrapar pokemon
                 {
                     scanf("%c",&garbageBin);
                     char* name;
@@ -113,7 +112,7 @@ int menu ()
                     addPoke(name,kind,uid,evolveFrom,evolvesIn,pokedex_id,region,pc,ps,gender);
                     break;
                 }
-                case 'd':
+                case 'd': //caso d, buscar por tipo
                 {
                     char kind [105];
                     printf("ingrese tipo de Pokemon!\n");
@@ -123,7 +122,7 @@ int menu ()
                     search_byKind(kind);
                     break;
                 }
-                case 'e':
+                case 'e': //caso e, buscar por nombre
                 {
                     char name [105];
                     printf("ingrese nombre del Pokemon!\n");
@@ -133,7 +132,7 @@ int menu ()
                     search_byName(name);
                     break;
                 }
-                case 'f':
+                case 'f': //caso f, buscar por nombre en la pokedex
                 {
                     char dex_name [105];
                     printf("ingrese nombre del Pokemon!\n");
@@ -143,7 +142,7 @@ int menu ()
                     dex_search_byName(dex_name);
                     break;
                 }
-                case 'g':
+                case 'g': //caso g, mostrar por region
                 {
                     char region [105];
                     printf("ingrese region!\n");
@@ -153,25 +152,25 @@ int menu ()
                     show_fromRegion(region);
                     break;
                 }
-                case 'h':
+                case 'h': //caso h, mostrar por pc
                 {
                     clear_Screen();
                     show_byPC();
                     break;
                 }
-                case 'i':
+                case 'i': //caso i, mostrar por ps
                 {
                     clear_Screen();
                     show_byPS();
                     break;
                 }
-                case 'j':
+                case 'j': //caso j, mostrar pokedex completa
                 {
                     clear_Screen();
                     print_dex();
                     break;
                 }
-                case 'k':
+                case 'k': //caso k, liberar pokemon
                 {
                     int id;
                     printf("ingrese ID del pokemon a eliminar!\n");
@@ -180,17 +179,17 @@ int menu ()
                     del_poke(id);
                     break;
                 }
-                case 'l':
+                case 'l': //caso l, limpiar pantalla
                 {
                     clear_Screen();
                     break;
                 }
-                case '\n':
+                case '\n': //caso enter, cambia el flag
                 {
                     flag =(0);
                     break;
                 }
-                default:
+                default: //caso cualquier otra tecla (excepto la ñ, que no la toma como letra, me parece que por el numero en la tabla ascii)
                     clear_Screen();
                     printf("Entrada invalida!");
                     break;
@@ -201,6 +200,6 @@ int menu ()
                 flag =(1);
             }
     }
-    while (flag!=(0));
+    while (flag!=(0)); //si el flag es 0 (apretaron enter), se corta el while y cierra el programa
     return(0);
 }
