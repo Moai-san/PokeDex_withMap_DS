@@ -311,13 +311,15 @@ void print_All(List* PokeNodes)
 {
    PokeNode* aux;
    aux =(first(PokeNodes));
-   aux =(next(PokeNodes));
    printf("%-25s│%-10s│%-28s│%-5s│%-40s│%-40s│%-14s│%s\n","Nombre","Tienes","Tipo(s)","Id","Pre-Evolucion","Evolucion","N° Pokedex ","Región");
    printf("⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼\n");
    while(aux!=NULL) 
    {
-      printf("%-25s│%-10d│%-28s│%-5d│%-40s│%-40s│%-13d│%s\n",aux->name,aux->have,aux->kind,aux->uid,aux->evolveFrom,aux->evolvesIn,aux->poke_id,aux->region);
-      aux =next(PokeNodes);
+      if(strcmp(aux->name,"nombre")!=0)
+      {
+         printf("%-25s│%-10d│%-28s│%-5d│%-40s│%-40s│%-13d│%s\n",aux->name,aux->have,aux->kind,aux->uid,aux->evolveFrom,aux->evolvesIn,aux->poke_id,aux->region);
+         aux =next(PokeNodes);
+      }
    }
    free(aux);
 }
@@ -392,7 +394,6 @@ void show_fromRegion(char* Region)
 {
    PokeNode* pokeInfo =create_PokeNode();
    pokeInfo =(first(PokeDex));
-   pokeInfo =(next(PokeDex));
    printf("%-25s│%-10s│%-28s│%-5s│%-40s│%-40s│%-14s│%s\n","Nombre","Tienes","Tipo(s)","Id","Pre-Evolucion","Evolucion","N° Pokedex ","Región");
    printf("⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼┼⎼⎼⎼⎼⎼⎼⎼⎼\n");
    char* a =(char*)calloc(50,sizeof(char));
@@ -406,6 +407,7 @@ void show_fromRegion(char* Region)
       }
       else
       {
+         printf("jalou\n");
          pokeInfo =next(PokeDex);
       }
       
@@ -519,6 +521,11 @@ void show_byPS()
 //muestra los Pokemon ordenados por pc, arriba los de mas pc, abajo los de menos
 void show_byPC()
 {
+   if(PS->root==NULL)
+   {
+      printf("BOLSA VACIA :C\n");
+      return;
+   }
    Pair* output;
    output =(last_tree(PC));
    printf("%-5s│%-25s│%-10s│%-6s│%-6s│\n","Id","Nombre","Sexo","PC","PS");

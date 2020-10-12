@@ -8,7 +8,7 @@
 #include "menu.c"
 int main()
 {
-    init_var();
-    menu();
+    init_var(); //inicializar variables globales
+    menu(); //entrar al menu
     return(0);
 }

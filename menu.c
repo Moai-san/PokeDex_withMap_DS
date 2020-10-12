@@ -2,7 +2,7 @@
 #include "list.h"
 #include "hashtable.h"
 #include "Poke.h"
-//#include "lectura_csv.c"
+
 /*System Condition, only if it's Compiled in windows, includes the library*/
 #ifdef _WIN32
     #include <windows.h>
@@ -22,6 +22,7 @@ void clear_Screen()
     }
     #endif
 }
+//dejar comments en los case, por funcion
 
 /*Menu (yup, i know that is obvious, but i have to comment that)*/
 int menu ()
@@ -45,7 +46,7 @@ int menu ()
                     char* file;
                     file =((char*)calloc(105,sizeof(char)));
                     printf("Ingresa el nombre del archivo a importar! OwO (nombre sin el formato) uwu \n");
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     scanf("%[^\n]",file);
                     clear_Screen();
                     importCSV(file);
@@ -56,7 +57,7 @@ int menu ()
                     char* name;
                     name =((char*)calloc(105,sizeof(char)));
                     printf("Ingrese el nombre que desea que tenga el archivo a exportar! (nombre sin el formato) uwu \n");
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     scanf("%[^\n]",name);
                     clear_Screen();
                     exportCSV(name);
@@ -64,7 +65,7 @@ int menu ()
                 }
                 case 'c':
                 {
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     char* name;
                     name =((char*)calloc(105,sizeof(char)));
                     char* kind;
@@ -83,30 +84,30 @@ int menu ()
                     gender =((char*)calloc(105,sizeof(char)));
                     printf("Ingresa el nombre\n");
                     scanf("%[^\n]",name);
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     printf("Ingresa el/los Tipo(s) (si es mas de un tipo, ingrese separados por coma, como en el ejemplo \"Fuego, Volador\", sin comillas)\n");
                     scanf("%[^\n]",kind);
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     printf("Ingresa la ID del pokemon\n");
                     scanf("%d",&uid);
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     printf("Ingresa la evolucion previa\n");
                     scanf("%[^\n]",evolveFrom);
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     printf("Ingresa la evolucion posterior\n");
                     scanf("%[^\n]",evolvesIn);
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     printf("Ingresa el numero en la pokedex del pokemon\n");
                     scanf("%d",&pokedex_id);
                     printf("Ingresa la region\n");
+                    scanf("%c",&garbageBin);
                     scanf("%[^\n]",region);
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
                     printf("Ingresa los PC del pokemon\n");
                     scanf("%d",&pc);
                     printf("Ingresa los PS del pokemon\n");
                     scanf("%d",&ps);
                     printf("Ingresa el sexo del pokemon");
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     scanf("%[^\n]",gender);
                     clear_Screen();
                     addPoke(name,kind,uid,evolveFrom,evolvesIn,pokedex_id,region,pc,ps,gender);
@@ -116,7 +117,7 @@ int menu ()
                 {
                     char kind [105];
                     printf("ingrese tipo de Pokemon!\n");
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     scanf("%[^\n]",kind);
                     clear_Screen();
                     search_byKind(kind);
@@ -126,7 +127,7 @@ int menu ()
                 {
                     char name [105];
                     printf("ingrese nombre del Pokemon!\n");
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     scanf("%[^\n]",name);
                     clear_Screen();
                     search_byName(name);
@@ -136,7 +137,7 @@ int menu ()
                 {
                     char dex_name [105];
                     printf("ingrese nombre del Pokemon!\n");
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     scanf("%[^\n]",dex_name);
                     clear_Screen();
                     dex_search_byName(dex_name);
@@ -146,7 +147,7 @@ int menu ()
                 {
                     char region [105];
                     printf("ingrese region!\n");
-                    scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
+                    scanf("%c",&garbageBin);
                     scanf("%[^\n]",region);
                     clear_Screen();
                     show_fromRegion(region);
@@ -166,7 +167,6 @@ int menu ()
                 }
                 case 'j':
                 {
-                    //k)Liberar un Pokemon,l)limpiar la pantalla
                     clear_Screen();
                     print_dex();
                     break;
@@ -191,7 +191,6 @@ int menu ()
                     break;
                 }
                 default:
-                    //scanf("%c",&garbageBin);//llamada a la papelera para la basura que se situa en stdin
                     clear_Screen();
                     printf("Entrada invalida!");
                     break;
